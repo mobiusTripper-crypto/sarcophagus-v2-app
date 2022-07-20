@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { encrypt } from 'ecies-geth';
 import { utils } from 'ethers';
-import { Buffer } from 'buffer';
-//import { hexToBytes } from '../../shared/components.utils';
 
 const useFileEncryption = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileByteArray, setFileByteArrayArray] = useState<ArrayBuffer | string | null>(null);
   const [fileEncryptedRecipient, setFileEncryptedRecipient] = useState<Buffer | null>(null);
   const [recipientPublicKey, setRecipientPublicKey] = useState<string | null>(null);
+  const [doubleEncryptedFile, setDoubleEncryptedFile] = useState<Buffer | null>(null);
+  const [randomPublicKey, setRandomPublicKey] = useState<string>('');
 
   function hexToBytes(hex: string, pad = false) {
     let byteArray = utils.arrayify(hex);
@@ -45,6 +45,16 @@ const useFileEncryption = () => {
     }
   }, [recipientPublicKey, fileByteArray]);
 
+  const secondEncryption = useCallback(async () => {
+    try {
+      const randomPublicKeyBytes = hexToBytes(randomPublicKey, true).slice(1);
+      const encrypted = await encrypt(randomPublicKeyBytes, fileEncryptedRecipient as Buffer);
+      setDoubleEncryptedFile(encrypted);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [fileEncryptedRecipient, randomPublicKey]);
+
   useEffect(() => {
     if (!file) return;
     try {
@@ -65,12 +75,19 @@ const useFileEncryption = () => {
     firstEncryption();
   }, [fileByteArray, recipientPublicKey, firstEncryption]);
 
+  useEffect(() => {
+    if (!fileEncryptedRecipient || !randomPublicKey) return;
+    secondEncryption();
+  }, [fileEncryptedRecipient, randomPublicKey, secondEncryption]);
+
   return {
     file,
     setFile,
     recipientPublicKey,
     setRecipientPublicKey,
     fileEncryptedRecipient,
+    setRandomPublicKey,
+    doubleEncryptedFile,
   };
 };
 
