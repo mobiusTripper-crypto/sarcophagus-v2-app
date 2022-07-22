@@ -35,7 +35,6 @@ interface LibEventsInterface extends ethers.utils.Interface {
     "UpdateArchaeologist(address,string,address,uint256,uint256,uint256,uint256,uint256)": EventFragment;
     "UpdateArchaeologistPublicKey(address,bytes)": EventFragment;
     "WithdrawFreeBond(address,uint256)": EventFragment;
-    "WithdrawReward(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "BurySarcophagus"): EventFragment;
@@ -54,16 +53,19 @@ interface LibEventsInterface extends ethers.utils.Interface {
     nameOrSignatureOrTopic: "UpdateArchaeologistPublicKey"
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawFreeBond"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "WithdrawReward"): EventFragment;
 }
 
-export type BurySarcophagusEvent = TypedEvent<[string] & { sarcoId: string }>;
+export type BurySarcophagusEvent = TypedEvent<
+  [string] & { identifier: string }
+>;
 
-export type CancelSarcophagusEvent = TypedEvent<[string] & { sarcoId: string }>;
+export type CancelSarcophagusEvent = TypedEvent<
+  [string] & { identifier: string }
+>;
 
 export type CleanUpSarcophagusEvent = TypedEvent<
   [string, string, BigNumber, BigNumber] & {
-    sarcoId: string;
+    identifier: string;
     cleaner: string;
     cleanerBondReward: BigNumber;
     embalmerBondReward: BigNumber;
@@ -79,12 +81,12 @@ export type DepositFreeBondEvent = TypedEvent<
 >;
 
 export type FinalizeSarcophagusEvent = TypedEvent<
-  [string, string] & { sarcoId: string; arweaveTxId: string }
+  [string, string] & { identifier: string; arweaveTxId: string }
 >;
 
 export type FinalizeTransferEvent = TypedEvent<
   [string, string, string, string] & {
-    sarcoId: string;
+    identifier: string;
     arweaveTxId: string;
     oldArchaeologist: string;
     newArchaeologist: string;
@@ -93,7 +95,7 @@ export type FinalizeTransferEvent = TypedEvent<
 
 export type InitializeSarcophagusEvent = TypedEvent<
   [string, string, boolean, BigNumber, string, string, string, string[]] & {
-    sarcoId: string;
+    identifier: string;
     name: string;
     canBeTransferred: boolean;
     resurrectionTime: BigNumber;
@@ -130,14 +132,14 @@ export type RegisterArchaeologistEvent = TypedEvent<
 
 export type RewrapSarcophagusEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-    sarcoId: string;
+    identifier: string;
     resurrectionTime: BigNumber;
     resurrectionWindow: BigNumber;
   }
 >;
 
 export type UnwrapSarcophagusEvent = TypedEvent<
-  [string, string] & { sarcoId: string; unencryptedShard: string }
+  [string, string] & { identifier: string; unencryptedShard: string }
 >;
 
 export type UpdateArchaeologistEvent = TypedEvent<
@@ -168,10 +170,6 @@ export type UpdateArchaeologistPublicKeyEvent = TypedEvent<
 
 export type WithdrawFreeBondEvent = TypedEvent<
   [string, BigNumber] & { archaeologist: string; withdrawnBond: BigNumber }
->;
-
-export type WithdrawRewardEvent = TypedEvent<
-  [string, BigNumber] & { archaeologist: string; withdrawnReward: BigNumber }
 >;
 
 export class LibEvents extends BaseContract {
@@ -223,30 +221,30 @@ export class LibEvents extends BaseContract {
 
   filters: {
     "BurySarcophagus(bytes32)"(
-      sarcoId?: BytesLike | null
-    ): TypedEventFilter<[string], { sarcoId: string }>;
+      identifier?: BytesLike | null
+    ): TypedEventFilter<[string], { identifier: string }>;
 
     BurySarcophagus(
-      sarcoId?: BytesLike | null
-    ): TypedEventFilter<[string], { sarcoId: string }>;
+      identifier?: BytesLike | null
+    ): TypedEventFilter<[string], { identifier: string }>;
 
     "CancelSarcophagus(bytes32)"(
-      sarcoId?: BytesLike | null
-    ): TypedEventFilter<[string], { sarcoId: string }>;
+      identifier?: BytesLike | null
+    ): TypedEventFilter<[string], { identifier: string }>;
 
     CancelSarcophagus(
-      sarcoId?: BytesLike | null
-    ): TypedEventFilter<[string], { sarcoId: string }>;
+      identifier?: BytesLike | null
+    ): TypedEventFilter<[string], { identifier: string }>;
 
     "CleanUpSarcophagus(bytes32,address,uint256,uint256)"(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       cleaner?: string | null,
       cleanerBondReward?: null,
       embalmerBondReward?: null
     ): TypedEventFilter<
       [string, string, BigNumber, BigNumber],
       {
-        sarcoId: string;
+        identifier: string;
         cleaner: string;
         cleanerBondReward: BigNumber;
         embalmerBondReward: BigNumber;
@@ -254,14 +252,14 @@ export class LibEvents extends BaseContract {
     >;
 
     CleanUpSarcophagus(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       cleaner?: string | null,
       cleanerBondReward?: null,
       embalmerBondReward?: null
     ): TypedEventFilter<
       [string, string, BigNumber, BigNumber],
       {
-        sarcoId: string;
+        identifier: string;
         cleaner: string;
         cleanerBondReward: BigNumber;
         embalmerBondReward: BigNumber;
@@ -293,30 +291,30 @@ export class LibEvents extends BaseContract {
     >;
 
     "FinalizeSarcophagus(bytes32,string)"(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       arweaveTxId?: null
     ): TypedEventFilter<
       [string, string],
-      { sarcoId: string; arweaveTxId: string }
+      { identifier: string; arweaveTxId: string }
     >;
 
     FinalizeSarcophagus(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       arweaveTxId?: null
     ): TypedEventFilter<
       [string, string],
-      { sarcoId: string; arweaveTxId: string }
+      { identifier: string; arweaveTxId: string }
     >;
 
     "FinalizeTransfer(bytes32,string,address,address)"(
-      sarcoId?: null,
+      identifier?: null,
       arweaveTxId?: null,
       oldArchaeologist?: null,
       newArchaeologist?: null
     ): TypedEventFilter<
       [string, string, string, string],
       {
-        sarcoId: string;
+        identifier: string;
         arweaveTxId: string;
         oldArchaeologist: string;
         newArchaeologist: string;
@@ -324,14 +322,14 @@ export class LibEvents extends BaseContract {
     >;
 
     FinalizeTransfer(
-      sarcoId?: null,
+      identifier?: null,
       arweaveTxId?: null,
       oldArchaeologist?: null,
       newArchaeologist?: null
     ): TypedEventFilter<
       [string, string, string, string],
       {
-        sarcoId: string;
+        identifier: string;
         arweaveTxId: string;
         oldArchaeologist: string;
         newArchaeologist: string;
@@ -339,7 +337,7 @@ export class LibEvents extends BaseContract {
     >;
 
     "InitializeSarcophagus(bytes32,string,bool,uint256,address,address,address,address[])"(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       name?: null,
       canBeTransferred?: null,
       resurrectionTime?: null,
@@ -350,7 +348,7 @@ export class LibEvents extends BaseContract {
     ): TypedEventFilter<
       [string, string, boolean, BigNumber, string, string, string, string[]],
       {
-        sarcoId: string;
+        identifier: string;
         name: string;
         canBeTransferred: boolean;
         resurrectionTime: BigNumber;
@@ -362,7 +360,7 @@ export class LibEvents extends BaseContract {
     >;
 
     InitializeSarcophagus(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       name?: null,
       canBeTransferred?: null,
       resurrectionTime?: null,
@@ -373,7 +371,7 @@ export class LibEvents extends BaseContract {
     ): TypedEventFilter<
       [string, string, boolean, BigNumber, string, string, string, string[]],
       {
-        sarcoId: string;
+        identifier: string;
         name: string;
         canBeTransferred: boolean;
         resurrectionTime: BigNumber;
@@ -455,45 +453,45 @@ export class LibEvents extends BaseContract {
     >;
 
     "RewrapSarcophagus(bytes32,uint256,uint256)"(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       resurrectionTime?: null,
       resurrectionWindow?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       {
-        sarcoId: string;
+        identifier: string;
         resurrectionTime: BigNumber;
         resurrectionWindow: BigNumber;
       }
     >;
 
     RewrapSarcophagus(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       resurrectionTime?: null,
       resurrectionWindow?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       {
-        sarcoId: string;
+        identifier: string;
         resurrectionTime: BigNumber;
         resurrectionWindow: BigNumber;
       }
     >;
 
     "UnwrapSarcophagus(bytes32,bytes)"(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       unencryptedShard?: null
     ): TypedEventFilter<
       [string, string],
-      { sarcoId: string; unencryptedShard: string }
+      { identifier: string; unencryptedShard: string }
     >;
 
     UnwrapSarcophagus(
-      sarcoId?: BytesLike | null,
+      identifier?: BytesLike | null,
       unencryptedShard?: null
     ): TypedEventFilter<
       [string, string],
-      { sarcoId: string; unencryptedShard: string }
+      { identifier: string; unencryptedShard: string }
     >;
 
     "UpdateArchaeologist(address,string,address,uint256,uint256,uint256,uint256,uint256)"(
@@ -590,22 +588,6 @@ export class LibEvents extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber],
       { archaeologist: string; withdrawnBond: BigNumber }
-    >;
-
-    "WithdrawReward(address,uint256)"(
-      archaeologist?: string | null,
-      withdrawnReward?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { archaeologist: string; withdrawnReward: BigNumber }
-    >;
-
-    WithdrawReward(
-      archaeologist?: string | null,
-      withdrawnReward?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { archaeologist: string; withdrawnReward: BigNumber }
     >;
   };
 

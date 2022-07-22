@@ -62,6 +62,11 @@ const _abi = [
     type: "error",
   },
   {
+    inputs: [],
+    name: "MaxResurrectionIntervalIsZero",
+    type: "error",
+  },
+  {
     inputs: [
       {
         internalType: "uint8",
@@ -86,6 +91,17 @@ const _abi = [
       },
     ],
     name: "NewResurrectionTimeInPast",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "newResurrectionTime",
+        type: "uint256",
+      },
+    ],
+    name: "NewResurrectionTimeTooLarge",
     type: "error",
   },
   {
@@ -310,7 +326,7 @@ const _abi = [
       },
       {
         internalType: "bytes32",
-        name: "hashedShard",
+        name: "doubleHashedShard",
         type: "bytes32",
       },
     ],
@@ -320,7 +336,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220c9079047f8d3a0c827aa50bddcf9e6329d311a9686192414d3c286414709fe0664736f6c634300080d0033";
+  "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122066a45041d31b8ed63bb7457a93bdfeef8b035455931246d354aa949ab36662e464736f6c634300080d0033";
 
 export class LibErrors__factory extends ContractFactory {
   constructor(

@@ -7,7 +7,7 @@ import { ChakraProvider, HStack } from '@chakra-ui/react';
 import Header from './components/Header';
 import Body from './components/Body';
 import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
-import TestPage from './pages/TestPage';
+import TestPage from './pages/FreeBondTestPage';
 import Home from './pages/Home';
 
 const { chains, provider } = configureChains(

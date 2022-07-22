@@ -1,4 +1,3 @@
-import { ContractInterface } from 'ethers';
 import { useContractWrite } from 'wagmi';
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
 import { useToast, ToastId } from '@chakra-ui/react';
@@ -6,15 +5,9 @@ import { useRef } from 'react';
 
 import { UseContractWriteArgs } from 'wagmi/dist/declarations/src/hooks/contracts/useContractWrite';
 
-// export function useSubmitTransaction(functionName: string, contractInterface: ContractInterface) {
-//   const config = {
-//     addressOrName: '0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0',
-//     functionName: functionName,
-//     contractInterface: contractInterface,
-//   };
 export function useSubmitTransaction(contractConfig: Omit<UseContractWriteArgs, 'addressOrName'>) {
   const writeConfig = {
-    addressOrName: '0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0',
+    addressOrName: process.env.REACT_APP_LOCAL_CONTRACT_ADDRESS || '',
     ...contractConfig,
   };
 

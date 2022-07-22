@@ -1,9 +1,15 @@
 import { Box, Button, FormControl, FormLabel, FormHelperText, Input } from '@chakra-ui/react';
 
-import useDepositFreeBond from './useDepositFreeBond';
+import useDepositFreeBond from '../contexts/useDepositFreeBond';
 
 function DepositFreeBond() {
-  const { depositAmount, setDepositAmount, depositFreeBond } = useDepositFreeBond();
+  const {
+    depositAmount,
+    setDepositAmount,
+    depositFreeBond,
+    approveSarcoToken,
+    hasSarcoTokenApproval,
+  } = useDepositFreeBond();
 
   return (
     <Box>
@@ -17,7 +23,11 @@ function DepositFreeBond() {
           }}
         />
         <FormHelperText>Enter amount for free bond deposit</FormHelperText>
-        <Button onClick={() => depositFreeBond()}>Deposit</Button>
+        {hasSarcoTokenApproval() ? (
+          <Button onClick={() => depositFreeBond()}>Deposit</Button>
+        ) : (
+          <Button onClick={() => approveSarcoToken()}>Approve</Button>
+        )}
       </FormControl>
     </Box>
   );

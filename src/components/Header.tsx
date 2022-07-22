@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { HStack, Grid, GridItem } from '@chakra-ui/react';
+import { HStack, Grid, GridItem, Button } from '@chakra-ui/react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 function Header() {
@@ -9,8 +9,12 @@ function Header() {
         <GridItem alignSelf="left">Sarcophugus V2</GridItem>
         <GridItem alignSelf="center">
           <HStack justifyContent="center">
-            <Link to="/">Home</Link>
-            <Link to="/testpage/">Test Page</Link>
+            <Button>
+              <Link to="/">Home</Link>
+            </Button>
+            <Button>
+              <Link to="/freebondtestpage/">Free Bond Test Page</Link>
+            </Button>
           </HStack>
         </GridItem>
         <GridItem alignSelf="center">

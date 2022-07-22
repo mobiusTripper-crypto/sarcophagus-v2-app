@@ -2,7 +2,7 @@ import { VStack } from '@chakra-ui/react';
 import DepositFreeBond from '../components/DepositFreeBond';
 import DisplayFreeBond from '../components/DisplayFreeBond';
 
-function TestPage() {
+function FreeBondTestPage() {
   return (
     <VStack>
       <DepositFreeBond />
@@ -11,4 +11,4 @@ function TestPage() {
   );
 }
 
-export default TestPage;
+export default FreeBondTestPage;

@@ -70,8 +70,45 @@ interface ArchaeologistFacetInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
 
-  events: {};
+  events: {
+    "DepositFreeBond(address,uint256)": EventFragment;
+    "FinalizeTransfer(bytes32,string,address,address)": EventFragment;
+    "UnwrapSarcophagus(bytes32,bytes)": EventFragment;
+    "WithdrawFreeBond(address,uint256)": EventFragment;
+    "WithdrawReward(address,uint256)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "DepositFreeBond"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "FinalizeTransfer"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UnwrapSarcophagus"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawFreeBond"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawReward"): EventFragment;
 }
+
+export type DepositFreeBondEvent = TypedEvent<
+  [string, BigNumber] & { archaeologist: string; depositedBond: BigNumber }
+>;
+
+export type FinalizeTransferEvent = TypedEvent<
+  [string, string, string, string] & {
+    sarcoId: string;
+    arweaveTxId: string;
+    oldArchaeologist: string;
+    newArchaeologist: string;
+  }
+>;
+
+export type UnwrapSarcophagusEvent = TypedEvent<
+  [string, string] & { sarcoId: string; unencryptedShard: string }
+>;
+
+export type WithdrawFreeBondEvent = TypedEvent<
+  [string, BigNumber] & { archaeologist: string; withdrawnBond: BigNumber }
+>;
+
+export type WithdrawRewardEvent = TypedEvent<
+  [string, BigNumber] & { archaeologist: string; withdrawnReward: BigNumber }
+>;
 
 export class ArchaeologistFacet extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -204,7 +241,101 @@ export class ArchaeologistFacet extends BaseContract {
     ): Promise<void>;
   };
 
-  filters: {};
+  filters: {
+    "DepositFreeBond(address,uint256)"(
+      archaeologist?: string | null,
+      depositedBond?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { archaeologist: string; depositedBond: BigNumber }
+    >;
+
+    DepositFreeBond(
+      archaeologist?: string | null,
+      depositedBond?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { archaeologist: string; depositedBond: BigNumber }
+    >;
+
+    "FinalizeTransfer(bytes32,string,address,address)"(
+      sarcoId?: null,
+      arweaveTxId?: null,
+      oldArchaeologist?: null,
+      newArchaeologist?: null
+    ): TypedEventFilter<
+      [string, string, string, string],
+      {
+        sarcoId: string;
+        arweaveTxId: string;
+        oldArchaeologist: string;
+        newArchaeologist: string;
+      }
+    >;
+
+    FinalizeTransfer(
+      sarcoId?: null,
+      arweaveTxId?: null,
+      oldArchaeologist?: null,
+      newArchaeologist?: null
+    ): TypedEventFilter<
+      [string, string, string, string],
+      {
+        sarcoId: string;
+        arweaveTxId: string;
+        oldArchaeologist: string;
+        newArchaeologist: string;
+      }
+    >;
+
+    "UnwrapSarcophagus(bytes32,bytes)"(
+      sarcoId?: BytesLike | null,
+      unencryptedShard?: null
+    ): TypedEventFilter<
+      [string, string],
+      { sarcoId: string; unencryptedShard: string }
+    >;
+
+    UnwrapSarcophagus(
+      sarcoId?: BytesLike | null,
+      unencryptedShard?: null
+    ): TypedEventFilter<
+      [string, string],
+      { sarcoId: string; unencryptedShard: string }
+    >;
+
+    "WithdrawFreeBond(address,uint256)"(
+      archaeologist?: string | null,
+      withdrawnBond?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { archaeologist: string; withdrawnBond: BigNumber }
+    >;
+
+    WithdrawFreeBond(
+      archaeologist?: string | null,
+      withdrawnBond?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { archaeologist: string; withdrawnBond: BigNumber }
+    >;
+
+    "WithdrawReward(address,uint256)"(
+      archaeologist?: string | null,
+      withdrawnReward?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { archaeologist: string; withdrawnReward: BigNumber }
+    >;
+
+    WithdrawReward(
+      archaeologist?: string | null,
+      withdrawnReward?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { archaeologist: string; withdrawnReward: BigNumber }
+    >;
+  };
 
   estimateGas: {
     depositFreeBond(

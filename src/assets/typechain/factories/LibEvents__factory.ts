@@ -13,7 +13,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
     ],
@@ -26,7 +26,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
     ],
@@ -39,7 +39,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
       {
@@ -102,7 +102,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
       {
@@ -121,7 +121,7 @@ const _abi = [
       {
         indexed: false,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
       {
@@ -152,7 +152,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
       {
@@ -268,7 +268,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
       {
@@ -293,7 +293,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "sarcoId",
+        name: "identifier",
         type: "bytes32",
       },
       {
@@ -399,29 +399,10 @@ const _abi = [
     name: "WithdrawFreeBond",
     type: "event",
   },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "archaeologist",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "withdrawnReward",
-        type: "uint256",
-      },
-    ],
-    name: "WithdrawReward",
-    type: "event",
-  },
 ];
 
 const _bytecode =
-  "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122088c4531987df6a52903136e06486c6edc6541287678443d6ba75f99a33df968964736f6c634300080d0033";
+  "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212208fa8f3aee83d74b3bf2261a2d4ffe4d96ec0441246a3bde21eda67e7f7bf717364736f6c634300080d0033";
 
 export class LibEvents__factory extends ContractFactory {
   constructor(

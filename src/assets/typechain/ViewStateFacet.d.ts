@@ -257,7 +257,7 @@ export class ViewStateFacet extends BaseContract {
           canBeTransferred: boolean;
           minShards: number;
           resurrectionTime: BigNumber;
-          resurrectionWindow: BigNumber;
+          maxResurrectionInterval: BigNumber;
           arweaveTxIds: string[];
           storageFee: BigNumber;
           embalmer: string;
@@ -277,7 +277,7 @@ export class ViewStateFacet extends BaseContract {
         [BigNumber, BigNumber, string, string] & {
           diggingFee: BigNumber;
           bounty: BigNumber;
-          hashedShard: string;
+          doubleHashedShard: string;
           unencryptedShard: string;
         }
       ]
@@ -357,7 +357,7 @@ export class ViewStateFacet extends BaseContract {
       canBeTransferred: boolean;
       minShards: number;
       resurrectionTime: BigNumber;
-      resurrectionWindow: BigNumber;
+      maxResurrectionInterval: BigNumber;
       arweaveTxIds: string[];
       storageFee: BigNumber;
       embalmer: string;
@@ -375,7 +375,7 @@ export class ViewStateFacet extends BaseContract {
     [BigNumber, BigNumber, string, string] & {
       diggingFee: BigNumber;
       bounty: BigNumber;
-      hashedShard: string;
+      doubleHashedShard: string;
       unencryptedShard: string;
     }
   >;
@@ -454,7 +454,7 @@ export class ViewStateFacet extends BaseContract {
         canBeTransferred: boolean;
         minShards: number;
         resurrectionTime: BigNumber;
-        resurrectionWindow: BigNumber;
+        maxResurrectionInterval: BigNumber;
         arweaveTxIds: string[];
         storageFee: BigNumber;
         embalmer: string;
@@ -472,7 +472,7 @@ export class ViewStateFacet extends BaseContract {
       [BigNumber, BigNumber, string, string] & {
         diggingFee: BigNumber;
         bounty: BigNumber;
-        hashedShard: string;
+        doubleHashedShard: string;
         unencryptedShard: string;
       }
     >;

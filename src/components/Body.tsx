@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import TestPage from '../pages/TestPage';
+import FreeBondTestPage from '../pages/FreeBondTestPage';
 import Home from '../pages/Home';
 import { Box } from '@chakra-ui/react';
 
@@ -12,8 +12,8 @@ function Body() {
           element={<Home />}
         ></Route>
         <Route
-          path="/testpage"
-          element={<TestPage />}
+          path="/freebondtestpage"
+          element={<FreeBondTestPage />}
         ></Route>
       </Routes>
     </Box>

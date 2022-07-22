@@ -21,7 +21,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface ThirdPartyFacetInterface extends ethers.utils.Interface {
   functions: {
-    "accuse(bytes32,bytes[],address)": FunctionFragment;
+    "accuse(bytes32,bytes32[],address)": FunctionFragment;
     "clean(bytes32,address)": FunctionFragment;
   };
 
@@ -110,7 +110,7 @@ export class ThirdPartyFacet extends BaseContract {
   functions: {
     accuse(
       sarcoId: BytesLike,
-      unencryptedShards: BytesLike[],
+      unencryptedShardHashes: BytesLike[],
       paymentAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -124,7 +124,7 @@ export class ThirdPartyFacet extends BaseContract {
 
   accuse(
     sarcoId: BytesLike,
-    unencryptedShards: BytesLike[],
+    unencryptedShardHashes: BytesLike[],
     paymentAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -138,7 +138,7 @@ export class ThirdPartyFacet extends BaseContract {
   callStatic: {
     accuse(
       sarcoId: BytesLike,
-      unencryptedShards: BytesLike[],
+      unencryptedShardHashes: BytesLike[],
       paymentAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -215,7 +215,7 @@ export class ThirdPartyFacet extends BaseContract {
   estimateGas: {
     accuse(
       sarcoId: BytesLike,
-      unencryptedShards: BytesLike[],
+      unencryptedShardHashes: BytesLike[],
       paymentAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -230,7 +230,7 @@ export class ThirdPartyFacet extends BaseContract {
   populateTransaction: {
     accuse(
       sarcoId: BytesLike,
-      unencryptedShards: BytesLike[],
+      unencryptedShardHashes: BytesLike[],
       paymentAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
